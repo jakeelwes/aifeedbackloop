@@ -1,0 +1,76 @@
+<html>
+
+<head>
+<title>AI Feedback</title>
+
+<script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+
+  <style>
+  body{
+    text-align: center;
+    font-size: 25px;
+    font-family: Monospace;
+  }
+  div {
+    padding: 20px;
+  }
+  </style>
+
+  <script src="js/typed.js"></script>
+
+</head>
+
+
+
+<body>
+<!-- <script>
+  var randomnumber = Math.floor((Math.random()*100)+1);
+  window.open('page1.html',"_blank",'PopUp',randomnumber,'scrollbars=1,menubar=0,resizable=1,width=850,height=500');
+  window.open('page2.html',"_blank",'PopUp',randomnumber,'scrollbars=1,menubar=0,resizable=1,width=850,height=500');
+</script> -->
+
+
+<script>
+
+var counter =  Math.floor(Math.random() * 20);
+getData=function() {
+  $.ajax({
+
+      url : "genImages/"+counter+".txt",
+      async: true,
+      dataType: "text",
+      success : function (data) {
+
+        $("body").prepend('<div id=\"'+counter+'\"> </div>')
+        $("body").prepend('<div id=\"pic'+counter+'\"> </div>')
+
+        $("#" + counter).typed({
+              strings: [data],
+              typeSpeed: 40
+        });
+
+
+        setTimeout(function(){
+          $("#pic" + counter).prepend('<img id="gif" width="300px" src="genImages/'+counter+'.gif" />');
+        }, 3000);
+        setTimeout(function(){
+          $("#pic" + counter).prepend('<img width="300px" src="genImages/'+counter+'.jpg" />');
+          $("#gif").remove();
+          counter++;
+          getData();
+      }, 17000);
+
+
+      }
+  });
+}
+
+getData();
+
+</script>
+
+</body>
+</html>
